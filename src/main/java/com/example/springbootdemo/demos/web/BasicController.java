@@ -41,7 +41,7 @@ public class BasicController {
     public User user() {
         User user = new User();
         user.setName("theonefx");
-        user.setAge(666);
+        user.setAge(6667);
         return user;
     }
 
