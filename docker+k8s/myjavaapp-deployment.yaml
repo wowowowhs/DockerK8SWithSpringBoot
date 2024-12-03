@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myjavaapp-deployment # 资源对象名称
+spec:
+  selector:
+    matchLabels:
+      app: myjavaapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myjavaapp
+    spec:
+      containers:
+        - name: myjavaapp
+          image: myjavaapp:v1.0
+          ports:
+            - containerPort: 8080 # 对外暴露的端口是80
+
+# selector：
+# selector 定义了该 Deployment 应该管理哪些 Pods。这里使用的 matchLabels 表示 Kubernetes 会根据标签来选择 Pods。
+# app: my-app 表示选择所有具有标签 app=my-app 的 Pods。
+# template：
+# template 定义了 Pods 的模板。当 Deployment 创建或更新 Pods 时，将使用这个模板。
+# metadata 下的 labels 定义了将要创建的 Pods 所需的标签。
+# labels：
+# app: my-app 表示新创建的 Pods 将具有这个标签。这样，Pods 在创建时会被标记为 app=my-app。
+# 整体作用
+# 管理 Pods：
+# selector 指定了 Deployment 管理的 Pods 的选择标准。只有符合选择器条件的 Pods 会被管理。
+# 创建 Pods：
+# template 定义了 Pods 的具体配置，包括它们的标签、容器、环境变量等。当 Deployment 创建 Pods 时，将根据这个模板创建 Pods，并应用这些标签。
+# 关系
+# 一致性：
+# selector 和 template 中的标签必须一致。Deployment 使用 selector 选择 Pods，而使用 template 创建 Pods。如果它们不匹配，Kubernetes 将无法正确管理 Pods。
